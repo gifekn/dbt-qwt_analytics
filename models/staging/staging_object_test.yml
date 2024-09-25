@@ -1,0 +1,49 @@
+version: 2
+models:
+  - name: stg_customers
+    description: "contains customers information"
+    columns:
+      - name: customerid
+        description: "contains unique customer id"
+        tests:
+          - unique
+          - not_null
+  - name: stg_products
+    description: "contains product info."
+    columns:
+      - name: productid
+        description: "contains unique prodid"
+        tests:
+          - unique
+          - not_null
+  - name: stg_shipments
+    description: "contains shipment details"
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['shipped', 'ordered', 'returned']
+  - name: stg_orderdetails
+    description: "detailed transcription description for each order"
+    columns:
+      - name: orderid
+        description: "orderid will be taken from order table "
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: orderid
+  #- name: stg_employee
+   # description: "master data of all employee who executed orders"
+    #columns:
+     # - name: empid
+      #  description: "unique employee id given to employee"
+       # tests:
+        #  - is_even
+
+
+
+
